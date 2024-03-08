@@ -1,0 +1,17 @@
+name: 05 - 1 - Event Filters and Activity Types
+on:
+    pull_request: 
+        types: [opened, synchronize]
+        branches:
+            - Main
+
+
+jobs:
+    echo:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Printer
+              run: |
+                Running whenever a PR 
+                is opened or synchronized 
+                AND base branch is main.
