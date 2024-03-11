@@ -3,7 +3,7 @@ on:
     pull_request: 
         types: [opened, synchronize]
         branches:
-            - Main
+            - Master
 
 
 jobs:
@@ -12,6 +12,6 @@ jobs:
         steps:
             - name: Printer
               run: |
-                Running whenever a PR 
-                is opened or synchronized 
-                AND base branch is main.
+                echo "Running whenever a PR 
+                git is opened or synchronized 
+                AND base branch is main."
