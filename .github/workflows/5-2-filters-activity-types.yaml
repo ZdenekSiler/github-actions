@@ -1,14 +1,14 @@
 name: 05 - 2 - Event Filters and Activity Types
-on:
-    pull_request: 
-        types: closed
-        branches:
-            - master
+on: workflow_dispatch
+    # pull_request: 
+    #     types: closed
+    #     branches:
+    #         - master
 jobs:
     echo:
         runs-on: ubuntu-latest
         steps:
             - name: Printer
               run: |
-                echo "Running whenever a PR is closed
+                echo "Running whenever a PR is closed"
             
