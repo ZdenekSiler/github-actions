@@ -15,11 +15,13 @@ on:
             description: Node description
 
 jobs:
-  build :
+  install-deps :
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: react-app/react-app
+        outputs: 
+            deps-cache-key: ${{ steps.cache-key.outputs.CACHE_KEY}}
         
     steps:
     - name: Checkout Code
@@ -51,4 +53,37 @@ jobs:
     - name: Deploying to nonprod
       run: |
         echo "Deploying to nonprod"
+   
+   
+  build :
+    runs-on: ubuntu-latest
+    defaults:
+        run:
+            working-directory: react-app/react-app
+
+    needs: [install-deps]
+
+    steps:
+        - name: Checkout Code
+          uses: actions/checkout@v4
+        
+        - name: Setup Node
+          uses: actions/setup-node@v3
+          with:
+            node-version: ${{ inputs.node-version }}
+
+        - name: Calculate cache_key
+          id: cache-key
+          run: echo "CACHE_KEY=deps-node-modules-${{ hashFiles('react-app/react-app/package-lock.json') }}" >> "$GITHUB_OUTPUT"
+        
+        - name: Download cached dependencies
+          id: cache
+          if: ${{ inputs.use-cache }}
+          uses: actions/cache@v3 
+          with:
+            path: react-app/react-app/node_modules
+            key:  ${{ needs.install-deps.outputs.CACHE_KEY }}
+      
+        - name: Run unit test
+          run: npm run test
       
