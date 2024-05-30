@@ -10,15 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       projects: ${{ steps.vars.outputs.project_list }}
+      #output1: ${{ steps.step1.outputs.test }}
     steps:
       - name: Create an array of projects
         id: vars
-        run: echo "::set-output name=project_list::$(jq 'split(",")' -Rc <(echo '${{ inputs.projects }}'))"
-
-      - name: Echo Project
-        run : |
-          echo "${{ setup.outputs.projects }}"
-  # build:
+        #run: echo "::set-output name=project_list::$(jq 'split(",")' -Rc <(echo '${{ inputs.projects }}'))"
+        run: echo "project_list=hello" >> "$GITHUB_OUTPUT"
+  
+  build:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - env:
+          OUTPUT1: ${{needs.setup.outputs.output1}}
+        run: echo "$OUTPUT1 $OUTPUT2"
+  # :
   #   needs: setup
   #   runs-on: ubuntu-latest
   #   strategy:
