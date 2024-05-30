@@ -45,7 +45,7 @@ jobs:
               run: echo "::set-output name=language_list::$(jq 'split(",")' -Rc <(echo '${{ inputs.language }}'))"
 
             
-    build:
+    build-1:
         runs-on: ubuntu-latest
         strategy:
         matrix:
