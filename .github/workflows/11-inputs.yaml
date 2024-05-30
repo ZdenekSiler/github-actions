@@ -19,12 +19,19 @@ on:
                     - v4
                 default: v3
                 description: Release from which to build and deploy"
-            
+            language: 
+                type: string
+                required: true
+                default: "['python']"
+
 
 
 jobs:
     build:
         runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                language: ${{ fromJson(inputs.language) }}
         steps:
             - name: Build
               run: |
