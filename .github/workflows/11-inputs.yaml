@@ -30,7 +30,7 @@ jobs:
     build:
         runs-on: ubuntu-latest
         outputs:
-            language: ${steps.vars.outputs.language}
+            language: ${steps.vars.outputs.language_list}
         steps:
             - name: Build
               run: |
@@ -40,10 +40,9 @@ jobs:
               run: |
                 echo "GITHUB_OUTPUT=$GITHUB_OUTPUT"
 
-            - name: Create an array of languages
+            - name: Create an array of projects
               id: vars
-              run: |
-                echo "::set-output name=language_list::$(jq 'split(","))' -Rc < echo '${{ inputs.languages }}"
+              run: echo "::set-output name=language_list::$(jq 'split(",")' -Rc <(echo '${{ inputs.language }}'))"
     deploy:
         needs: build
         runs-on: ubuntu-latest
