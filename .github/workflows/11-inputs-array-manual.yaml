@@ -14,9 +14,16 @@ jobs:
     steps:
       - name: Create an array of projects
         id: vars
-        #run: echo "::set-output name=project_list::$(jq 'split(",")' -Rc <(echo '${{ inputs.projects }}'))"
-        run: echo "project_list=hello" >> "$GITHUB_OUTPUT"
-  
+          
+        run: |
+          #echo "project_list=${{ inputs.projects }}" >> "$GITHUB_OUTPUT"
+        # language_list=$(echo "$languages" | jq -Rc 'split(",")')
+        #  echo "language_list=$language_list" >> $GITHUB_ENV
+
+          projects="${{ inputs.projects }}"
+          echo "projects: $projects"
+          project_list=$(echo "$projects" | jq -Rc 'split(",")')
+          echo "project_list=$project_list" >> $GITHUB_OUTPUT  
   build:
     runs-on: ubuntu-latest
     needs: setup
