@@ -1,0 +1,37 @@
+name: 11 - Working with Inputs Array to be passed to Matrix
+on:
+    workflow_dispatch:
+        inputs:
+            tag:
+                type: choice
+                options:
+                    - v1
+                    - v2
+                    - v3
+                    - v4
+                default: v3
+                description: Release from which to build and deploy"
+            language: 
+                type: string
+                required: true
+                default: python,javascript,go
+
+
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        # outputs:
+        #     language: ${steps.vars.outputs.language_list}
+        steps:
+            - name: Build
+              run: |
+                echo "Building from tag ${{ inputs.tag }}"
+
+            - name: Print GITHUB_OUTPUT path
+              run: |
+                echo "GITHUB_OUTPUT=$GITHUB_OUTPUT"
+
+            - name: Create an array of projects
+              id: vars
+              run: echo ""
