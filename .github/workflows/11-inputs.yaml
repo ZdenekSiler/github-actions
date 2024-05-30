@@ -52,7 +52,7 @@ jobs:
             language: ${{ fromJson(needs.setup.outputs.language) }}
         steps:
         - name: build project ${{ matrix.language }}
-        run: echo "project=${{ matrix.language }}" 
+          run: echo "project=${{ matrix.language }}" 
 
     deploy:
         needs: build
