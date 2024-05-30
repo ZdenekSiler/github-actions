@@ -31,13 +31,13 @@ jobs:
       - env:
           OUTPUT1: ${{needs.setup.outputs.projects}}
         run: echo "$projects"
-  # :
-  #   needs: setup
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       node-version: [16.x]
-  #       project: ${{ fromJson(needs.setup.outputs.projects) }}
-  #   steps:
-  #   - name: build project ${{ matrix.project }}
-  #     run: echo "project=${{ matrix.project }}" 
+
+  deploy:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: ${{ fromJson(needs.setup.outputs.projects) }}
+    steps:
+    - name: build project ${{ matrix.project }}
+      run: echo "project=${{ matrix.project }}" 
