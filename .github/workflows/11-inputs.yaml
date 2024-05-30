@@ -43,6 +43,17 @@ jobs:
             - name: Create an array of projects
               id: vars
               run: echo "::set-output name=language_list::$(jq 'split(",")' -Rc <(echo '${{ inputs.language }}'))"
+
+            
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+        matrix:
+            language: ${{ fromJson(needs.setup.outputs.language) }}
+        steps:
+        - name: build project ${{ matrix.language }}
+        run: echo "project=${{ matrix.language }}" 
+
     deploy:
         needs: build
         runs-on: ubuntu-latest
