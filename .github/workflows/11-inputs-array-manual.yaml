@@ -16,10 +16,10 @@ jobs:
         id: vars
           
         run: |
-          echo "${{ inputs.projects }}"
-          #echo "projects: $projects"
-          # project_list=$(echo "$projects" | jq -Rc 'split(",")')
-          # echo "project_list=$project_list" >> $GITHUB_OUTPUT  
+          projects="${{ inputs.projects }}"
+          echo "projects: $projects"
+          project_list=$(echo "$projects" | jq -Rc 'split(",")')
+          echo "project_list=$project_list" >> $GITHUB_OUTPUT  
   build:
     runs-on: ubuntu-latest
     needs: setup
