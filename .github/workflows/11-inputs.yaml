@@ -7,7 +7,7 @@ on:
               default: false
               description: Skip deployment and only print build output
             target:
-                type: environment
+                type: ENVIRONMENT
                 required: true
                 description: Which environment the workflow will target"
             tag:
