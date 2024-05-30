@@ -16,8 +16,8 @@ jobs:
         id: vars
           
         run: |
-          projects="${{ inputs.projects }}"
-          echo "projects: $projects"
+          echo "${{ inputs.projects }}"
+          #echo "projects: $projects"
           # project_list=$(echo "$projects" | jq -Rc 'split(",")')
           # echo "project_list=$project_list" >> $GITHUB_OUTPUT  
   build:
