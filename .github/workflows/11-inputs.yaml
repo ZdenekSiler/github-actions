@@ -22,20 +22,28 @@ on:
             language: 
                 type: string
                 required: true
-                default: "['python']"
+                default: python,javascript,go
 
 
 
 jobs:
     build:
         runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                language: ${{ fromJson(inputs.language) }}
+        outputs:
+            language: ${steps.vars.outputs.language}
         steps:
             - name: Build
               run: |
                 echo "Building from tag ${{ inputs.tag }}"
+
+            - name: Print GITHUB_OUTPUT path
+              run: |
+                echo "GITHUB_OUTPUT=$GITHUB_OUTPUT"
+
+            - name: Create an array of languages
+              id: vars
+              run: |
+                echo "::set-output name=language_list::$(jq 'split(","))' -Rc < echo '${{ inputs.languages }}"
     deploy:
         needs: build
         runs-on: ubuntu-latest
