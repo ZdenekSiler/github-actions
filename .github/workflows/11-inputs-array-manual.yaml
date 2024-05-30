@@ -14,6 +14,10 @@ jobs:
       - name: Create an array of projects
         id: vars
         run: echo "::set-output name=project_list::$(jq 'split(",")' -Rc <(echo '${{ inputs.projects }}'))"
+
+      - name: Echo Project
+        run : |
+          echo "${{ setup.outputs.projects }}"
   # build:
   #   needs: setup
   #   runs-on: ubuntu-latest
