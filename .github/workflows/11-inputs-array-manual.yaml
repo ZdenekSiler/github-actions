@@ -4,7 +4,7 @@ on:
     inputs:
       projects:
         required: true
-        type: string # like project1,project2,project3
+          type: string # like project1,project2,project3
 jobs:
   setup:
     runs-on: ubuntu-latest
