@@ -20,4 +20,4 @@ jobs:
         
       - name: Perform some tests
         run: |
-          echo "Running tests on OS: and NodeJS: "
+          echo "Running tests on OS: ${{ matrix.os }} and NodeJS: ${{ matrix.node-version }} "
