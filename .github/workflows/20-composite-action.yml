@@ -1,19 +1,21 @@
-name: 20 - composite action
-on: workflow_dispatch
+  name: 20 - composite action
+  on: workflow_dispatch
 
-jobs:
-  example-job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  jobs:
+    example-job:
+      runs-on: ubuntu-latest
+      outputs: 
+        version: ${{ steps.get_version.outputs.version}}
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
 
-      - name: Get BL Package Major Minor Version
-        id: get_version
-        uses: ZdenekSiler/composite_semver@master
-        with:
-          debug: true
+        - name: Get BL Package Major Minor Version
+          id: get_version
+          uses: ZdenekSiler/composite_semver@master
+          with:
+            debug: true
 
-      - name: Build
-        run: |
-          echo "Get version:  ${{ steps.get_version.outputs.version }}"
+        - name: Build
+          run: |
+            echo "Get version:  ${{ steps.get_version.outputs.version }}"
