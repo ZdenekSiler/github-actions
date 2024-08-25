@@ -9,6 +9,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get BL Package Major Minor Version
+        id: get_version
         uses: ZdenekSiler/composite_semver@master
         with:
           debug: true
+
+      - name: Build
+        run: |
+          echo "Get version:  ${{ steps.get_version.outputs.version }}"
