@@ -16,6 +16,16 @@
           with:
             debug: true
 
-        - name: Build
+        - name: Get version
           run: |
             echo "Get version:  ${{ steps.get_version.outputs.version }}"
+
+        - name: Debug
+          id: debuggerMode  
+          run: |
+            "echo debugger='debug' " >> $GITHUB_OUTPUT
+          
+        - name: Debug
+          run: | 
+            echo "debuggerMode is ${{steps.debuggerMode.outputs.debugger}}"
+          
