@@ -1,0 +1,14 @@
+name: 20 - composite action
+on: workflow_dispatch
+
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get BL Package Major Minor Version
+        uses: ZdenekSiler/composite_semver@master
+        with:
+          debug: true
