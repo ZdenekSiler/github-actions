@@ -1,4 +1,6 @@
 ** ReadME file**
 Simple Change
 
-![Link an image.](/learn/azure-devops/shared/media/mara.png)
+1. First
+1. Second
+1. Third
